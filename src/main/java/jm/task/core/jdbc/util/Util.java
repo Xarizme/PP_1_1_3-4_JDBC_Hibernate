@@ -16,6 +16,7 @@ import java.util.Properties;
 public class Util {
     private static SessionFactory sessionFactory;
     private static final String url = "jdbc:mysql://localhost:3306/mydb";
+    private static final String driver = "com.mysql.cj.jdbc.Driver";
     private static final String username = "roo";
     private static final String password = "root";
 
@@ -23,7 +24,7 @@ public class Util {
         Connection connection = null;
 
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName(driver);
             connection = DriverManager.getConnection(url, username, password);
         } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
@@ -54,10 +55,10 @@ public class Util {
         Configuration configuration = new Configuration();
 
         Properties settings = new Properties();
-        settings.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
-        settings.put(Environment.URL, "jdbc:mysql://localhost:3306/mydb");
-        settings.put(Environment.USER, "roo");
-        settings.put(Environment.PASS, "root");
+        settings.put(Environment.DRIVER, driver);
+        settings.put(Environment.URL, url);
+        settings.put(Environment.USER, username);
+        settings.put(Environment.PASS, password);
         settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
 
         settings.put(Environment.SHOW_SQL, "true");
